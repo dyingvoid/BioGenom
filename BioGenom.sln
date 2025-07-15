@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BioGenom", "BioGenom\BioGenom.csproj", "{AAA54B84-89D4-49A0-9850-6F1053B7F9A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{8CCF29B3-55FF-42D4-8EBA-003F45506508}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{5BE55E39-8936-4555-A701-581AA3C9B90C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{0FF59292-9A1D-411C-B96B-65561840B588}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AAA54B84-89D4-49A0-9850-6F1053B7F9A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAA54B84-89D4-49A0-9850-6F1053B7F9A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAA54B84-89D4-49A0-9850-6F1053B7F9A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAA54B84-89D4-49A0-9850-6F1053B7F9A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CCF29B3-55FF-42D4-8EBA-003F45506508}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CCF29B3-55FF-42D4-8EBA-003F45506508}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CCF29B3-55FF-42D4-8EBA-003F45506508}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CCF29B3-55FF-42D4-8EBA-003F45506508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BE55E39-8936-4555-A701-581AA3C9B90C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BE55E39-8936-4555-A701-581AA3C9B90C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BE55E39-8936-4555-A701-581AA3C9B90C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BE55E39-8936-4555-A701-581AA3C9B90C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FF59292-9A1D-411C-B96B-65561840B588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FF59292-9A1D-411C-B96B-65561840B588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FF59292-9A1D-411C-B96B-65561840B588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FF59292-9A1D-411C-B96B-65561840B588}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
