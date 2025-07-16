@@ -1,3 +1,4 @@
+using Business.Common;
 using Business.Dtos;
 using Business.Interfaces;
 using Models;
@@ -49,5 +50,14 @@ public class DrugService
 
         await _drugRepository.Insert(drug, ct);
         return drug.Id;
+    }
+
+    public async Task<List<Drug>> GetSuitableDrugs(Report report, CancellationToken ct = default)
+    {
+        List<Deficit> deficits = [];
+        foreach (var nr in report.NutrientReports)
+        {
+            
+        }
     }
 }
