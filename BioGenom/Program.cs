@@ -18,11 +18,9 @@ public class Program
         builder.Services.AddStackExchangeRedisCache(options =>
         {
             options.Configuration = builder.Configuration.GetConnectionString("Redis");
-            options.InstanceName = "BioGenom:";
+            options.InstanceName = "BioGenomReport:";
         });
         builder.Services.RegisterApplicationServices();
-
-        
         
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
