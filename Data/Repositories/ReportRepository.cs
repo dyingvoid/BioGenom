@@ -14,18 +14,18 @@ public class ReportRepository : IReportRepository
         _context = context;
     }
 
-    public Task Insert(Report report, CancellationToken ct = default)
+    public Task InsertFastReportAsync(Report report, CancellationToken ct = default)
     {
         _context.Reports.Add(report);
         return _context.SaveChangesAsync(ct);
     }
 
-    public Task<Report?> GetById(Guid id, CancellationToken ct = default)
+    public Task<Report?> GetFastReportByUserIdAsync(Guid userId, CancellationToken ct = default)
     {
         return _context.Reports
             .Include(x => x.NutrientReports)
             .ThenInclude(x => x.Nutrient)
             .ThenInclude(x => x.Unit)
-            .FirstOrDefaultAsync(x => x.Id == id, ct);
+            .FirstOrDefaultAsync(x => x.UserId == userId, ct);
     }
 }

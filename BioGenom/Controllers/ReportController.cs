@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BioGenom.Controllers;
 
 [ApiController]
-[Route("report")]
+[Route("users/{userId}/reports")]
 public class ReportController : ControllerBase
 {
     private readonly ReportService _reportService;
@@ -15,7 +15,7 @@ public class ReportController : ControllerBase
         _reportService = reportService;
     }
 
-    [HttpPost("")]
+    [HttpPost("fast")]
     public async Task<IActionResult> CreateReport(
         [FromBody] ReportRequestDto dto, CancellationToken ct = default)
     {
@@ -26,7 +26,7 @@ public class ReportController : ControllerBase
         return Created($"/report/{id}", id);
     }
 
-    [HttpGet("{id:guid}")]
+    [HttpGet("fast")]
     public async Task<IActionResult> GetReport(Guid id, CancellationToken ct = default)
     {
         var report = await _reportService.GetReportById(id, ct);

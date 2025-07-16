@@ -15,9 +15,15 @@ public class Program
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
         );
         builder.Services.RegisterRepositories();
-
+        builder.Services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = builder.Configuration.GetConnectionString("Redis");
+            options.InstanceName = "BioGenom:";
+        });
         builder.Services.RegisterApplicationServices();
 
+        
+        
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
 
