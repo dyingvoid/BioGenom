@@ -38,6 +38,7 @@ public class ReportService
             UserId = req.UserId,
             NutrientReports = nutrientReports,
         };
+        await InvalidateCacheFastReport(req.UserId, ct);
         await _reportRepository.InsertFastReportAsync(report, ct);
 
         return report.Id;
@@ -77,10 +78,21 @@ public class ReportService
 
     private async Task<ReportResponseDto?> GetFastReportFromCache(Guid userId, CancellationToken ct)
     {
-        var cacheKey = $"fast-report:{userId}";
+        var cacheKey = CreateKey(userId);
         var cached = await _cache.GetStringAsync(cacheKey, ct);
         return cached is null 
             ? null 
             : JsonSerializer.Deserialize<ReportResponseDto>(cached);
+    }
+
+    private Task InvalidateCacheFastReport(Guid userId, CancellationToken ct)
+    {
+        var cacheKey = CreateKey(userId);
+        return _cache.RemoveAsync(cacheKey, ct);
+    }
+    
+    private static string CreateKey(Guid userId)
+    {
+        return $"fast-report:{userId}";
     }
 }
