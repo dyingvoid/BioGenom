@@ -71,7 +71,7 @@ public class ReportService
                 if (!ok)
                     return null;
 
-                var recommendedIntake = new RecommendedNutrientIntakeDto(
+                var recommendedIntake = RecommendedNutrientIntakeDto.Create(
                     nutrientId: nutrient!.NutrientId,
                     nutrientName: nutrient.NutrientName,
                     currentIntake: nutrient.CurrentIntake,

@@ -18,13 +18,18 @@ public record RecommendedNutrientIntakeDto
 
     [JsonPropertyName("food_intake")]
     public float FoodIntake { get; init; }
-
-    public RecommendedNutrientIntakeDto(
+    
+    public static RecommendedNutrientIntakeDto Create(
         int nutrientId, string nutrientName,
         float currentIntake, float drugIntake, float recommendedIntake)
     {
-        CurrentIntake = currentIntake;
-        DrugIntake = drugIntake;
-        FoodIntake = Math.Max(0, recommendedIntake - currentIntake - drugIntake);
+        return new RecommendedNutrientIntakeDto
+        {
+            NutrientId = nutrientId,
+            NutrientName = nutrientName,
+            CurrentIntake = currentIntake,
+            DrugIntake = drugIntake,
+            FoodIntake = Math.Max(0, recommendedIntake - currentIntake - drugIntake)
+        };
     }
 }
