@@ -14,10 +14,18 @@ public class ReportRepository : IReportRepository
         _context = context;
     }
 
-    public Task InsertFastReportAsync(Report report, CancellationToken ct = default)
+    public async Task UpsertFastReport(Report report, CancellationToken ct = default)
     {
-        _context.Reports.Add(report);
-        return _context.SaveChangesAsync(ct);
+        var old = await _context.Reports
+            .Where(r => r.UserId == report.UserId)
+            .ToListAsync(ct);
+        if (old.Count != 0)
+        {
+            _context.Reports.RemoveRange(old);
+        }
+        
+        await _context.Reports.AddAsync(report, ct);
+        await _context.SaveChangesAsync(ct);
     }
 
     public Task<Report?> GetFastReportByUserIdAsync(Guid userId, CancellationToken ct = default)

@@ -48,7 +48,7 @@ public class ReportService
         await _cacheService.RemoveAsync(key, ct);
         _logger.LogInformation("Cache entry removed for {Key}", key);
         
-        await _reportRepository.InsertFastReportAsync(report, ct);
+        await _reportRepository.UpsertFastReport(report, ct);
         _logger.LogInformation("Report inserted in db.");
 
         return report.Id;
@@ -75,13 +75,16 @@ public class ReportService
             "Received drugs recommendation: {Serialize}", JsonSerializer.Serialize(recommendedDrugsRes)
         );
 
-        var hs = nutrientReports
-            .ToDictionary(nr => nr.NutrientId, nr => nr);
+        var hm = nutrientReports
+            .GroupBy(nr => nr.NutrientId)
+            .ToDictionary(
+                g => g.Key, 
+                g => g.First());
         var recommendedIntakes = recommendedDrugsRes.Drugs
             .SelectMany(d => d.Nutrients)
             .Select(drugNutrient =>
             {
-                var ok = hs.TryGetValue(drugNutrient.NutrientId, out var nutrient);
+                var ok = hm.TryGetValue(drugNutrient.NutrientId, out var nutrient);
                 if (!ok)
                     return null;
 
