@@ -2,11 +2,11 @@ using Business.Dtos;
 
 namespace Business.Interfaces;
 
-public interface IRecommendationApi
+public interface IDrugRecommendationApi
 {
     Task<DrugRecommendationDto> GetRecommendedDrugs(
         Guid userId,
-        ReportResponseDto reportResponseDto,
+        IList<NutrientReportResponseDto> nutrientReports,
         CancellationToken ct = default
     );
 }

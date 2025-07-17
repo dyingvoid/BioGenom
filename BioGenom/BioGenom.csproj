@@ -17,7 +17,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Business\Business.csproj" />
-      <ProjectReference Include="..\Data\Data.csproj" />
+      <ProjectReference Include="..\Infrastructure.Apis\Infrastructure.Apis.csproj" />
+      <ProjectReference Include="..\Infrastructure.Persistence\Infrastructure.Persistence.csproj" />
       <ProjectReference Include="..\Models\Models.csproj" />
     </ItemGroup>
 

@@ -1,8 +1,8 @@
 using Business.Interfaces;
-using Data.Repositories;
+using Infrastructure.Persistence.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Data;
+namespace Infrastructure.Persistence;
 
 public static class DependencyInjection
 {

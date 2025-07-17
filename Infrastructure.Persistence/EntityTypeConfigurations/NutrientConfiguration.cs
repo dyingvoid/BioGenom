@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models;
 
-namespace Data.EntityTypeConfigurations;
+namespace Infrastructure.Persistence.EntityTypeConfigurations;
 
 public class NutrientConfiguration : IEntityTypeConfiguration<Nutrient>
 {

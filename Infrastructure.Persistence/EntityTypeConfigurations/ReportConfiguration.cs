@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models;
 
-namespace Data.EntityTypeConfigurations;
+namespace Infrastructure.Persistence.EntityTypeConfigurations;
 
 public class ReportConfiguration : IEntityTypeConfiguration<Report>
 {
@@ -16,6 +16,9 @@ public class ReportConfiguration : IEntityTypeConfiguration<Report>
         builder
             .Property(x => x.UserId)
             .HasColumnName("user_id");
+        builder
+            .HasIndex(x => x.UserId)
+            .IsUnique();
         builder
             .HasMany(x => x.NutrientReports)
             .WithOne(x => x.Report)

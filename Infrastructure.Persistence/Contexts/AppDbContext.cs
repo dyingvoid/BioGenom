@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Models;
 
-namespace Data.Contexts;
+namespace Infrastructure.Persistence.Contexts;
 
 public class AppDbContext : DbContext
 {

@@ -1,6 +1,7 @@
 using Business;
-using Data;
-using Data.Contexts;
+using Infrastructure.Apis;
+using Infrastructure.Persistence;
+using Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace BioGenom;
@@ -20,6 +21,7 @@ public class Program
             options.Configuration = builder.Configuration.GetConnectionString("Redis");
             options.InstanceName = "BioGenomReport:";
         });
+        builder.Services.RegisterApis();
         builder.Services.RegisterApplicationServices();
         
         builder.Services.AddControllers();

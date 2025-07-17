@@ -1,9 +1,9 @@
 using Business.Interfaces;
-using Data.Contexts;
+using Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Models;
 
-namespace Data.Repositories;
+namespace Infrastructure.Persistence.Repositories;
 
 public class ReportRepository : IReportRepository
 {
