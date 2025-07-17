@@ -1,0 +1,47 @@
+﻿version: "3.8"
+
+services:
+  biogenom:
+    image: biogenom
+    build:
+      context: .
+      dockerfile: BioGenom/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bio_genom
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    restart: always
+    volumes:
+      - redis_data:/data
+  seq:
+    image: datalust/seq
+    ports:
+      - "5341:5341"
+      - "8082:80"
+    restart: always
+    volumes:
+      - seq_data:/data
+    environment:
+      ACCEPT_EULA: Y
+      SEQ_FIRSTRUN_ADMINPASSWORD: seq
+    
+    
+
+volumes:
+  postgres_data:
+  seq_data:
+  redis_data:

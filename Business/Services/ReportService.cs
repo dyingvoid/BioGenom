@@ -1,5 +1,7 @@
+using System.Text.Json;
 using Business.Dtos;
 using Business.Interfaces;
+using Microsoft.Extensions.Logging;
 using Models;
 
 namespace Business.Services;
@@ -9,15 +11,18 @@ public class ReportService
     private readonly IReportRepository _reportRepository;
     private readonly CacheService _cacheService;
     private readonly IDrugRecommendationApi _drugRecommendationApi;
+    private readonly ILogger<ReportService> _logger;
 
     public ReportService(
         IReportRepository reportRepository,
         CacheService cacheService,
-        IDrugRecommendationApi drugRecommendationApi)
+        IDrugRecommendationApi drugRecommendationApi,
+        ILogger<ReportService> logger)
     {
         _reportRepository = reportRepository;
         _cacheService = cacheService;
         _drugRecommendationApi = drugRecommendationApi;
+        _logger = logger;
     }
 
     public async Task<Guid> CreateReport(
@@ -39,18 +44,24 @@ public class ReportService
             UserId = req.UserId,
             NutrientReports = nutrientReports,
         };
-        await _cacheService.RemoveAsync(CreateKey(req.UserId), ct);
+        var key = CreateKey(req.UserId);
+        await _cacheService.RemoveAsync(key, ct);
+        _logger.LogInformation("Cache entry removed for {Key}", key);
+        
         await _reportRepository.InsertFastReportAsync(report, ct);
+        _logger.LogInformation("Report inserted in db.");
 
         return report.Id;
     }
 
-    public async Task<ReportResponseDto?> GetReportByUserId(Guid userId, CancellationToken ct = default)
+    public async Task<ReportResponseDto?> GetReportByUserId(
+        Guid userId, CancellationToken ct = default)
     {
         var cacheKey = CreateKey(userId);
         var cached = await _cacheService.GetAsync<ReportResponseDto>(cacheKey, ct);
         if (cached != null)
         {
+            _logger.LogInformation("Cached response");
             return cached;
         }
 
@@ -60,6 +71,9 @@ public class ReportService
 
         var recommendedDrugsRes = await _drugRecommendationApi
             .GetRecommendedDrugs(userId, nutrientReports, ct);
+        _logger.LogInformation(
+            "Received drugs recommendation: {Serialize}", JsonSerializer.Serialize(recommendedDrugsRes)
+        );
 
         var hs = nutrientReports
             .ToDictionary(nr => nr.NutrientId, nr => nr);
